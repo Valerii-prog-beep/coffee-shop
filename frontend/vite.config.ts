@@ -6,6 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5175,  // Устанавливаем порт 5175
-    host: true   // Разрешаем доступ с других устройств
+    host: true,   // Разрешаем доступ с других устройств
+    proxy: {      // ← ДОБАВЬ ЭТОТ БЛОК
+      '/api': {
+        target: 'http://localhost:8081',
+        changeOrigin: true
+      }
+    }
   }
 })

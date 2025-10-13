@@ -8,6 +8,7 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
   // Функция для получения пути к изображению продукта
   const getProductImage = (product: Product) => {
+ //   debugger;
     const imageMap: Record<string, string> = {
       'Espresso': '/images/espresso.png',
       'Cappuccino': '/images/cappuccino.png',
@@ -41,7 +42,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
       {/* Product Image Section */}
-      <div className="relative h-48 bg-gradient-to-br from-coffee-200 to-coffee-300 overflow-hidden">
+      <div className="relative h-64 bg-gradient-to-br from-coffee-200 to-coffee-300 overflow-hidden">
         {/* Real Product Image */}
         <img 
           src={getProductImage(product)}

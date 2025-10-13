@@ -22,3 +22,15 @@ export interface Product {
   ingredients: string | null;
   createdAt: string;
 }
+
+// ДОБАВИМ ТИПЫ ДЛЯ КОРЗИНЫ
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
+export interface Cart {
+  items: CartItem[];
+  total: number;
+  itemCount: number;
+}

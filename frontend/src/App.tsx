@@ -1,5 +1,6 @@
 import { Header } from './components/layout/Header'
 import { Hero } from './components/sections/Hero'
+import { ProductCard } from './components/ui/ProductCard'
 import { useProducts } from './hooks/useProducts'
 
 function App() {
@@ -33,15 +34,7 @@ function App() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
             {products.map(product => (
-              <div key={product.id} className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
-                <div className="w-20 h-20 bg-coffee-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-2xl">☕</span>
-                </div>
-                <h3 className="text-xl font-bold text-coffee-800 mb-2">{product.name}</h3>
-                <p className="text-coffee-600 mb-4">{product.description}</p>
-                <p className="text-coffee-700 font-bold text-lg">${product.price}</p>
-                <p className="text-sm text-coffee-500 mt-2">{product.category.name}</p>
-              </div>
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
           
