@@ -1,6 +1,10 @@
-import  {useCartStore}  from '../store/cartStore';
+import { useCartStore } from '../../store/cartStore';
 
-export function Header() {
+interface HeaderProps {
+  onCartClick?: () => void;
+}
+
+export function Header({ onCartClick }: HeaderProps) {
   const getTotalItems = useCartStore((state) => state.getTotalItems);
 
   const handleScrollTo = (sectionId: string) => {
@@ -13,51 +17,66 @@ export function Header() {
     }
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <header className="bg-coffee-800 text-white p-4 shadow-lg sticky top-0 z-50">
-      <nav className="container mx-auto flex justify-center">
-        <div className="space-x-8 flex items-center">
-          <button 
-            onClick={scrollToTop}
-            className="hover:text-coffee-300 transition-colors text-lg font-medium"
-          >
-            Home
-          </button>
-          <button 
-            onClick={() => handleScrollTo('menu')}
-            className="hover:text-coffee-300 transition-colors text-lg font-medium"
-          >
-            Menu
-          </button>
-          <button 
-            onClick={() => handleScrollTo('cart')}
-            className="hover:text-coffee-300 transition-colors text-lg font-medium relative"
-          >
-            Cart
-            {getTotalItems() > 0 && (
-              <span className="absolute -top-2 -right-4 bg-coffee-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {getTotalItems()}
-              </span>
-            )}
-          </button>
-          <button 
-            onClick={() => handleScrollTo('about')}
-            className="hover:text-coffee-300 transition-colors text-lg font-medium"
-          >
-            About
-          </button>
-          <button 
-            onClick={() => handleScrollTo('contact')}
-            className="hover:text-coffee-300 transition-colors text-lg font-medium"
-          >
-            Contact
-          </button>
+    <header className="bg-coffee-50 shadow-sm border-b border-coffee-100">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center space-x-8">
+            {/* Логотип */}
+            <div className="flex items-center">
+              <img 
+                src="/images/coffee-logo.png" 
+                alt="Coffee Shop" 
+                className="h-10 w-auto"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fallback = document.createElement('div');
+                  fallback.className = 'text-2xl font-bold text-coffee-700';
+                  fallback.textContent = 'Coffee Shop';
+                  e.currentTarget.parentNode?.appendChild(fallback);
+                }}
+              />
+            </div>
+            
+            {/* Навигация */}
+            <nav className="flex space-x-6">
+              <button 
+                onClick={() => handleScrollTo('menu')}
+                className="text-coffee-700 hover:text-coffee-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-coffee-100"
+              >
+                Menu
+              </button>
+              <button 
+                onClick={() => handleScrollTo('about')}
+                className="text-coffee-700 hover:text-coffee-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-coffee-100"
+              >
+                About
+              </button>
+              <button 
+                onClick={() => handleScrollTo('contacts')}
+                className="text-coffee-700 hover:text-coffee-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-coffee-100"
+              >
+                Contact
+              </button>
+            </nav>
+          </div>
+          
+          {/* Корзина */}
+          <div className="relative">
+            <button 
+              onClick={() => handleScrollTo('cart')}
+              className="flex items-center space-x-2 text-coffee-700 hover:text-coffee-900 transition-colors p-3 rounded-lg hover:bg-coffee-100"
+            >
+              <span className="text-xl">🛒</span>
+              {getTotalItems() > 0 && (
+                <span className="absolute -top-1 -right-1 bg-coffee-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center font-bold">
+                  {getTotalItems()}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
-      </nav>
+      </div>
     </header>
   );
 }

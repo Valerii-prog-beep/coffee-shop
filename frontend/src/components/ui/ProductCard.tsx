@@ -1,14 +1,16 @@
-import type{ Product } from '../../types';
+import type { Product } from '../../types';
+import { useCartStore } from '../../store/cartStore';
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart?: (product: Product) => void;
+  onAddToCart: () => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+  const { addToCart } = useCartStore();
+
   // Функция для получения пути к изображению продукта
   const getProductImage = (product: Product) => {
- //   debugger;
     const imageMap: Record<string, string> = {
       'Espresso': '/images/espresso.png',
       'Cappuccino': '/images/cappuccino.png',
@@ -39,8 +41,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }
     }
   };
 
+  const handleAddToCart = () => {
+    addToCart(product);
+    onAddToCart(); // Вызываем скролл после добавления
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+      
       {/* Product Image Section */}
       <div className="relative h-64 bg-gradient-to-br from-coffee-200 to-coffee-300 overflow-hidden">
         {/* Real Product Image */}
@@ -107,7 +115,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }
 
         {/* Add to Cart Button */}
         <button
-          onClick={() => onAddToCart?.(product)}
+          onClick={handleAddToCart}
           disabled={!product.isAvailable}
           className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
             product.isAvailable
