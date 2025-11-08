@@ -4,7 +4,7 @@ interface HeaderProps {
   onCartClick?: () => void;
 }
 
-export function Header({ onCartClick }: HeaderProps) {
+export function Header({ }: HeaderProps) {
   const getTotalItems = useCartStore((state) => state.getTotalItems);
 
   const handleScrollTo = (sectionId: string) => {

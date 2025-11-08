@@ -6,7 +6,7 @@ import { useProducts } from '../hooks/useProducts';
 import { About } from '../components/sections/About';
 
 export function MainPage() {
-  const { products, categories, featuredProducts, loading, error } = useProducts();
+  const { products, loading, error } = useProducts();
 
   const handleScrollToCart = () => {
     const cartElement = document.getElementById('cart');

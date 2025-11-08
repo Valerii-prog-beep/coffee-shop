@@ -1,6 +1,6 @@
 import type{ Product, Category } from '../types';
 
-const API_BASE = 'http://localhost:8081/api';
+const API_BASE = '/api';
 
 export const api = {
   // Получить все категории
